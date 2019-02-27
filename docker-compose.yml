@@ -1,23 +1,37 @@
-version: '2'
+version: "3"
+
 services:
-  web:
-    image: openeducat/docker
-    depends_on:
-      - db
-    ports:
-      - "80:8069"
-    volumes:
-      - odoo-web-data:/var/lib/odoo
-      - ./config:/etc/odoo
-      - ./addons:/mnt/extra-addons
-  db:
-    image: postgres:9.4
+  openeducat11:
+    image: asperitus/openeducat:11.0
+    container_name: openeducat
     environment:
-      - POSTGRES_PASSWORD=odoo
-      - POSTGRES_USER=odoo
-      - PGDATA=/var/lib/postgresql/data/pgdata
+      - DB_PORT_5432_TCP_ADDR=postgres
+      - DB_ENV_POSTGRES_USER=postgres
+      - DB_ENV_POSTGRES_PASSWORD=postgres
+    ports:
+      - "8069:8069"
+      - "8071:8071"
+    depends_on:
+      - "postgres96"
+    networks:
+      - openeducat-net
+
+  postgres:
+    image: postgres:9.6
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - "5432:5432"
     volumes:
-      - odoo-db-data:/var/lib/postgresql/data/pgdata
+      - "pg-data:/var/lib/postgresql/data"
+    networks:
+      - openeducat-net
+
 volumes:
-  odoo-web-data:
-  odoo-db-data:
+  pg-data:
+
+networks:
+  openeducat-net:
