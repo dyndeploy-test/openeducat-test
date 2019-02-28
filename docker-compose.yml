@@ -9,7 +9,7 @@ services:
       - DB_ENV_POSTGRES_USER=openeducat
       - DB_ENV_POSTGRES_PASSWORD=openeducat
     ports:
-      - "8069:8069"
+      - "80:8069"
       - "8071:8071"
     depends_on:
       - "postgres"
