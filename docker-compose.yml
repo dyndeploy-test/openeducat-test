@@ -6,8 +6,8 @@ services:
     container_name: openeducat
     environment:
       - DB_PORT_5432_TCP_ADDR=postgres
-      - DB_ENV_POSTGRES_USER=postgres
-      - DB_ENV_POSTGRES_PASSWORD=postgres
+      - DB_ENV_POSTGRES_USER=openeducat
+      - DB_ENV_POSTGRES_PASSWORD=openeducat
     ports:
       - "8069:8069"
       - "8071:8071"
@@ -20,9 +20,9 @@ services:
     image: postgres:9.6
     container_name: postgres
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=postgres
+      - POSTGRES_USER=openeducat
+      - POSTGRES_PASSWORD=openeducat
+      - POSTGRES_DB=openeducat
     ports:
       - "5432:5432"
     volumes:
